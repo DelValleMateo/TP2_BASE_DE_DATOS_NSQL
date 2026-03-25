@@ -1,0 +1,277 @@
+/* Variables de Tema Oscuro de Star Wars */
+:root {
+    --bg-dark: #090a0f;
+    --text-main: #e0e0e0;
+    --star-yellow: #ffe81f; /* Color clÃ¡sico de SW */
+    --accent-blue: #4db8ff;
+    
+    /* Colores por estado */
+    --color-disponible: #2ecc71;
+    --color-reservado: #f39c12;
+    --color-alquilado: #e74c3c;
+    
+    --card-bg: #151821;
+    --card-border: rgba(255, 232, 31, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Jura', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tipografía galáctica */
+h1, h2, h3, .btn, .badge {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Header principal */
+.hero-header {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: radial-gradient(circle at center, #1a1e29 0%, var(--bg-dark) 100%);
+    border-bottom: 2px solid var(--star-yellow);
+    box-shadow: 0 0 20px rgba(255, 232, 31, 0.15);
+}
+
+.hero-header h1 {
+    color: var(--star-yellow);
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(255, 232, 31, 0.5);
+    margin-bottom: 0.5rem;
+    letter-spacing: 3px;
+}
+
+.hero-header h2 {
+    color: var(--accent-blue);
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    flex-grow: 1;
+}
+
+/* Mensajes Flash */
+.flash-container {
+    margin-bottom: 2rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.alert-success {
+    color: var(--color-disponible);
+    border: 1px solid var(--color-disponible);
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.2);
+}
+
+.alert-error {
+    color: var(--color-alquilado);
+    border: 1px solid var(--color-alquilado);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.2);
+}
+
+/* Grilla de Capítulos */
+.chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Tarjetas y Estilos */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Colores de Tarjetas según el Estado */
+.card.status-disponible {
+    border-color: rgba(46, 204, 113, 0.3);
+}
+.card.status-disponible:hover {
+    box-shadow: 0 10px 20px rgba(46, 204, 113, 0.15);
+}
+
+.card.status-reservado {
+    border-color: rgba(243, 156, 18, 0.3);
+}
+.card.status-reservado:hover {
+    box-shadow: 0 10px 20px rgba(243, 156, 18, 0.15);
+}
+
+.card.status-alquilado {
+    border-color: rgba(231, 76, 60, 0.3);
+}
+.card.status-alquilado:hover {
+    box-shadow: 0 10px 20px rgba(231, 76, 60, 0.15);
+}
+
+.card-header {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header h3 {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.label {
+    color: #888;
+}
+
+.price {
+    font-weight: 600;
+    color: var(--star-yellow);
+    font-size: 1.2rem;
+}
+
+/* Etiquetas / Badges de Estados */
+.badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge-disponible {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--color-disponible);
+    border: 1px solid var(--color-disponible);
+}
+
+.badge-reservado {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--color-reservado);
+    border: 1px solid var(--color-reservado);
+}
+
+.badge-alquilado {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--color-alquilado);
+    border: 1px solid var(--color-alquilado);
+}
+
+/* Acciones en la Tarjeta */
+.card-actions {
+    padding: 1.2rem;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.card-actions form {
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    background-color: transparent;
+}
+
+.btn-success {
+    border: 1px solid var(--color-disponible);
+    color: var(--color-disponible);
+}
+
+.btn-success:hover {
+    background-color: var(--color-disponible);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+
+.btn-warning {
+    border: 1px solid var(--color-reservado);
+    color: var(--color-reservado);
+}
+
+.btn-warning:hover {
+    background-color: var(--color-reservado);
+    color: #000;
+    box-shadow: 0 0 15px rgba(243, 156, 18, 0.4);
+}
+
+.btn-disabled {
+    border: 1px solid #555;
+    color: #555;
+    cursor: not-allowed;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.confirm-payment {
+    animation: pulse 2s infinite;
+}
+
+/* Footer simple */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* Animaciones */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mandalorian - Alquiler de Capítulos</title>
+    <!-- Incluimos los estilos modernos de Star Wars -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Fuentes espaciales de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Jura:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero-header">
+        <div class="header-content">
+            <h1>ALQUILER DE CAPÍTULOS</h1>
+            <h2>THE MANDALORIAN</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Sección de mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Grilla de Capítulos -->
+        <div class="chapters-grid">
+            {% for cap in capitulos %}
+                <!-- Asignamos una clase CSS particular basada en el estado de Redis -->
+                <div class="card status-{{ cap.estado | lower }}">
+                    <div class="card-header">
+                        <h3>{{ cap.titulo }}</h3>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="label">Precio:</span>
+                            <span class="price">${{ cap.precio }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Estado:</span>
+                            <!-- Etiqueta de color para el estado -->
+                            <span class="badge badge-{{ cap.estado | lower }}">
+                                {{ cap.estado }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions">
+                        {% if cap.estado == 'Disponible' %}
+                            <!-- Botón para reservar por 4 minutos -->
+                            <form action="{{ url_for('reservar', id_capitulo=cap.id) }}" method="POST">
+                                <button type="submit" class="btn btn-warning">Reservar (4 Min)</button>
+                            </form>
+                            <!-- Botón para pagar directamente y alquilar por 24 horas -->
+                            <form action="{{ url_for('alquilar', id_capitulo=cap.id) }}" method="POST">
+                                <input type="hidden" name="precio" value="{{ cap.precio }}">
+                                <button type="submit" class="btn btn-success">Alquilar (24 Hs)</button>
+                            </form>
+                        
+                        {% elif cap.estado == 'Reservado' %}
+                            <!-- Si está reservado, sólo mostrar la opción para confirmar el pago y alquilar -->
+                            <form action="{{ url_for('alquilar', id_capitulo=cap.id) }}" method="POST">
+                                <input type="hidden" name="precio" value="{{ cap.precio }}">
+                                <button type="submit" class="btn btn-success confirm-payment">Confirmar Pago</button>
+                            </form>
+                        
+                        {% else %}
+                            <!-- Si está alquilado, inhabilitar acciones -->
+                            <button disabled class="btn btn-disabled">No Disponible</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <p>Práctica - Bases de Datos NoSQL | Redis + Flask</p>
+    </footer>
+</body>
+</html>
